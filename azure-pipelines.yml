@@ -1,3 +1,17 @@
-trigger: - main
-pool:
-vmlmage: 'ubuntu-latest'
+steps:
+  # 1. Python telepítése
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+
+  # 2. Függőségek telepítése
+  - script: |
+      python -m pip install --upgrade pip
+      pip install pytest
+    displayName: 'Install dependencies'
+
+  # 3. Tesztek futtatása
+  - script: |
+      pytest
+    displayName: 'Run tests'
